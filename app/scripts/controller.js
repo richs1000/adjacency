@@ -22,7 +22,7 @@ function GraphController() {
 		undirected: 'true',
 		weighted: 'false',
 		firstQuestion: 0,
-		lastQuestion: 3,
+		lastQuestion: 1,
 		doNotLaunch: true
 	});
 	// expose model data to Smart Sparrow

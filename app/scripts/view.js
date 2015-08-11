@@ -101,7 +101,6 @@ GraphView.prototype.presentQuestion = function() {
  * on whether the answer was correct or incorrect.
  */
 GraphView.prototype.drawAnswerHistory = function(answerHistory) {
-	console.log('drawing answer history');
 	// clear the answer history display
 	$( ".answerHistory" ).empty();
 	// loop through all the items in the queue

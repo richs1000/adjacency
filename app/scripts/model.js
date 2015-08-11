@@ -191,40 +191,23 @@ GraphModel.prototype.createNewGraph = function() {
 	// I'm using an object as a dictionary of lists, where each
 	// list contains all the nodes that could connect to the index
 	// node
-	// if the graph is undirected, I only consider half the possible
-	// edges
-	if (this.get('undirected') == 'true') {
-		var neighborDict = {
-			A:['B', 'D', 'E'],
-			B:['C', 'D', 'E', 'F'],
-			C:['E', 'F'],
-			D:['E', 'G', 'H'],
-			E:['F', 'G', 'H', 'I'],
-			F:['H', 'I'],
-			G:['H'],
-			H:['I'],
-			I:[],
-		};
-	// otherwise, I have to consider all of them
-	} else {
-		var neighborDict = {
-			A:['B', 'D', 'E'],
-			B:['A', 'C', 'D', 'E', 'F'],
-			C:['B', 'E', 'F'],
-			D:['A', 'B', 'E', 'G', 'H'],
-			E:['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I'],
-			F:['B', 'C', 'E', 'H', 'I'],
-			G:['D', 'E', 'H'],
-			H:['D', 'E', 'F', 'G', 'I'],
-			I:['E', 'F', 'H'],
-		};
-	}
+	var neighborDict = {
+		A:['B', 'D', 'E'],
+		B:['A', 'C', 'D', 'E', 'F'],
+		C:['B', 'E', 'F'],
+		D:['A', 'B', 'E', 'G', 'H'],
+		E:['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I'],
+		F:['B', 'C', 'E', 'H', 'I'],
+		G:['D', 'E', 'H'],
+		H:['D', 'E', 'F', 'G', 'I'],
+		I:['E', 'F', 'H'],
+	};
 	// create nodes and edges
 	for (var startNodeID in neighborDict) {
 		// add the node to our list of nodes
 		this.addNodeToGraph(startNodeID);
-		// choose some number of neighbors to remove (at least one, maybe all)
-		var removeCount = getRandomInt(1, neighborDict[startNodeID].length + 1);
+		// choose some number of neighbors to remove (remove at least one, keep at least one)
+		var removeCount = getRandomInt(1, neighborDict[startNodeID].length);
 		// randomly choose that many nodes to remove
 		for (var count = 0; count < removeCount; count++) {
 			// pick a random index
@@ -282,25 +265,8 @@ GraphModel.prototype.createNewQuestions = function() {
 	// Each question template is an array holding either strings
   // or executable commands stored as strings.
   this.questions = [
- 	 ["How many nodes does this graph have?"],
- 	 ["What is the cardinality of this graph?"],
- 	 ["What is the degree of node ",
- 		tempNode1.nodeID,
- 		"?"],
- 	 ["True or False: There an edge from node ",
- 		tempNode1.nodeID,
- 		" to node ",
- 		tempNode2.nodeID],
-	 ["What is the weight of the edge from node ",
-    tempEdge.fromNodeID,
-		" to node ",
-	  tempEdge.toNodeID],
-	 ["What is the in-degree of node ",
-  	tempNode1.nodeID,
-  	"?"],
-	 ["What is the out-degree of node ",
-	  tempNode1.nodeID,
-	  "?"],
+ 	 ["Fill in the adjacency matrix"],
+ 	 ["Fill in the adjacency list"],
   ];
   // the question index is used to rotate through the questions
   this.questionIndex = 0;

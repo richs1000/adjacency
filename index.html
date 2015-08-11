@@ -5,9 +5,9 @@
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" type="text/css" href="app/styles/style.css"/>
 		<link rel="stylesheet" type="text/css" href="app/styles/bootstrap.min.css">
-		<title>Graph Theory</title>
+		<link rel="stylesheet" type="text/css" href="app/styles/style.css"/>
+		<title>Adjacency Lists and Matrices</title>
 
 	</head>
 	<body>
@@ -22,7 +22,134 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label id="lblQuestion"></label>
-							<input type="text" class="form-control" placeholder="Answer here" id="txtAnswer">
+							<div class='adjacencyMatrix'>
+								<table id='adjacencyMatrixTable'>
+									<thead>
+										<tr>
+											<td></td>
+											<th scope="col" text-align="center">A</th>
+											<th scope="col" text-align="center">B</th>
+											<th scope="col" text-align="center">C</th>
+											<th scope="col" text-align="center">D</th>
+											<th scope="col" text-align="center">E</th>
+											<th scope="col" text-align="center">F</th>
+											<th scope="col" text-align="center">G</th>
+											<th scope="col" text-align="center">H</th>
+											<th scope="col" text-align="center">I</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row" text-align="center">A</th>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_0"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_1"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_2"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_3"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_4"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_5"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_6"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_7"></td>
+											<td text-align="center"><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_0_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">B</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_1_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">C</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_2_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">D</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_3_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">E</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_4_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">F</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_5_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">G</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_6_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">H</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_7_8"></td>
+										</tr>
+										<tr>
+											<th scope="row">I</th>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_0"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_1"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_2"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_3"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_4"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_5"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_6"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_7"></td>
+											<td><input type="text" class="form-control adjacencyMatrixSquare" id="aMS_8_8"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 							<button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
 							<button id="btnNextQuestion" type="button" class="btn btn-primary" disabled="true">Next Question</button>
 						</div>

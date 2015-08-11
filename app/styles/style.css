@@ -1,0 +1,50 @@
+
+body{
+	background-attachment: fixed;
+	text-align: left;
+}
+
+
+#form1 {
+}
+
+
+#graphCanvas {
+    border: 10px inset blue;
+}
+
+#lblQuestion {
+	font-size: 24px;
+}
+
+.btn {
+	margin-top: 12px;
+}
+
+#txtAnswer {
+	font-size: 24px;
+}
+
+#txtFeedback {
+	font-size: 24px;
+}
+
+.answerBlock{
+	width:30px;
+	height:30px;
+	border: 1px inset black;
+	display: inline-block;
+	margin-right: 2px;
+}
+
+.noAnswer{
+	background:white;
+}
+
+.rightAnswer{
+    background:green;
+}
+
+.wrongAnswer{
+    background:red;
+}

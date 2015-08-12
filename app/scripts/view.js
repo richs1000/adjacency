@@ -25,25 +25,51 @@ function GraphView(_controller) {
 }
 
 
+/*
+ * This function loops through all of the text entry fields
+ * and constructs the adjacency matrix
+ */
+GraphView.prototype.getAdjacencyMatrix = function() {
+	// start with an empty adjacency matrix
+	var studentAnswer = [];
+	// loop through all the "from" nodes in the graph
+	for (var f = 0; f < this.controller.graphModel.nodes.length; f++) {
+		// create an empty row to add to the adjacency matrix
+		var row = [];
+		// loop through all the "to" nodes in the graph
+		for (var t = 0; t < this.controller.graphModel.nodes.length; t++) {
+			// construct the id string
+			var cellID = '#aMS_' + f + '_' + t;
+			// get contents of cellID
+			var cellValue = $( cellID ).val();
+			// add the value in this text field to the end of the adjacency matrix row
+			row.push(cellValue);
+		}
+		// add the row to the bottom of the adjacency matrix
+		studentAnswer.push(row);
+	}
+	return studentAnswer;
+}
+
 GraphView.prototype.setupControls = function() {
 	// add event handler for submit button
 	$( "#btnSubmit" ).click(function() {
-		// check the answer
-		var studentAnswer = $( "#txtAnswer" ).val();
+		// get the student's answer
+		var studentAnswer = graphController.graphView.getAdjacencyMatrix();
 		console.log("Student answered " + studentAnswer);
 		// record whether it was right or wrong
 		var rightAnswer = graphController.graphModel.checkAnswer(studentAnswer);
 		// store the results
 		graphController.graphModel.updateAnswerHistory(rightAnswer);
-		// draw the results for the last five questions
+		// draw the results for the previous questions
 		graphController.graphView.drawAnswerHistory(graphController.graphModel.answerHistory);
 		// if they got the right answer
 		if (rightAnswer) {
 			// give them feedback
-			$( "#txtFeedback" ).html("Right. The answer is " + studentAnswer);
+			$( "#txtFeedback" ).html("Right");
 		} else {
 			// give them feedback
-			$( "#txtFeedback" ).html("That is incorrect. The correct answer is " + graphController.graphModel.answers[0]);
+			$( "#txtFeedback" ).html("That is incorrect");
 		}
 		// has mastery been demonstrated?
 		if (graphController.graphModel.masteryAchieved()) {
@@ -147,10 +173,7 @@ GraphView.prototype.setupGraphView = function() {
 		C:{x:350, y:50, id:'C', draw: true},
 		D:{x:50, y:150, id:'D', draw: true},
 		E:{x:200, y:150, id:'E', draw: true},
-		F:{x:350, y:150, id:'F', draw: true},
-		G:{x:50, y:250, id:'G', draw: true},
-		H:{x:200, y:250, id:'H', draw: true},
-		I:{x:350, y:250, id:'I', draw: true},
+		F:{x:350, y:150, id:'F', draw: true}
 	};
 }
 

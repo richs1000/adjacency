@@ -146,12 +146,19 @@ GraphModel.prototype.masteryAchieved = function() {
  * Compare the student's answer to the correct answer(s).
  */
 GraphModel.prototype.checkAnswer = function (studentAnswer) {
-	for (var i = 0; i < this.answers.length; i++) {
-		if (this.answers[i].toString().toLowerCase() == studentAnswer.toString().toLowerCase()) {
-			return true;
+	// loop through all the rows (the from nodes)
+	for (var f = 0; f < this.adjacencyMatrix.length; f++) {
+		// loop through all the columns within each row
+		for (var t = 0; t < this.adjacencyMatrix[f].length; t++) {
+			// compare the student's answer with the correct answer
+			if (this.adjacencyMatrix[f][t] != studentAnswer[f][t]) {
+				// if anything doesn't match, they got it wrong
+				return false;
+			}
 		}
 	}
-	return false;
+	// everything matches, they got the question right
+	return true;
 }
 
 
@@ -172,20 +179,17 @@ GraphModel.prototype.createNewGraph = function() {
 	// adjacency list - used to answer questions
 	// here I'm treating an object like a dictionary of lists, indexed by
 	// the node index
-	this.adjacencyList = {A:[], B:[], C:[], D:[], E:[], F:[], G:[], H:[], I:[]};
+	this.adjacencyList = {A:[], B:[], C:[], D:[], E:[], F:[]};
 	// adjacency matrix - used to answer questions
 	// rows are indexed by start of edge, columns are indexed by end of edge
 	// items are indexed as adjacencyMatrix[from][to]
 	this.adjacencyMatrix = [
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
 	];
 	// This as a quick, cheap way to store each node's neighbors.
 	// I'm using an object as a dictionary of lists, where each
@@ -195,12 +199,9 @@ GraphModel.prototype.createNewGraph = function() {
 		A:['B', 'D', 'E'],
 		B:['A', 'C', 'D', 'E', 'F'],
 		C:['B', 'E', 'F'],
-		D:['A', 'B', 'E', 'G', 'H'],
-		E:['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I'],
-		F:['B', 'C', 'E', 'H', 'I'],
-		G:['D', 'E', 'H'],
-		H:['D', 'E', 'F', 'G', 'I'],
-		I:['E', 'F', 'H'],
+		D:['A', 'B', 'E'],
+		E:['A', 'B', 'C', 'D', 'F'],
+		F:['B', 'C', 'E'],
 	};
 	// create nodes and edges
 	for (var startNodeID in neighborDict) {
@@ -253,15 +254,6 @@ GraphModel.prototype.createNewGraph = function() {
  * Create a new set of question templateString
  */
 GraphModel.prototype.createNewQuestions = function() {
-	// pick a random edge
-	var tempEdge = this.randomEdge();
-	// pick a random node
-	var tempNode1 = this.randomNode();
-	do
-		// pick another random node
-		var tempNode2 = this.randomNode();
-	// make sure we get two different nodes
-	while (tempNode2.nodeID == tempNode1.nodeID);
 	// Each question template is an array holding either strings
   // or executable commands stored as strings.
   this.questions = [
@@ -294,89 +286,6 @@ GraphModel.prototype.chooseQuestion = function() {
 		// add it to the question string
 		this.question = this.question + templateString;
 	}
-}
-
-
-/*
- * Set the answer(s) to the question indicated by questionIndex.
- * Right now I'm using a really clunky approach. I'm sure there's
- * a better way.
- */
-GraphModel.prototype.setAnswers = function() {
-	// Reset answers array
-	this.answers = [];
-	// How many nodes does this graph have?
-	if (this.questionIndex == 0) {
-		this.answers.push(this.connectedNodeList().length);
-	// What is the cardinality of this graph?
-	} else if (this.questionIndex == 1) {
-		this.answers.push(this.cardinality());
-	// What is the degree of node _x_?
-	} else if (this.questionIndex == 2) {
-		// what's the ID of the node?
-		var nodeID = this.questions[this.questionIndex][1];
-		// use the ID to get a pointer to the node
-		var node = this.nodes[this.findNode(nodeID)];
-		// get the degree of the node
-		this.answers.push(this.degree(node));
-	// True or False: There is an edge between node _x_ and node_y_
-	} else if (this.questionIndex == 3) {
-		// what's the ID of node X?
-		var nodeXID = this.questions[this.questionIndex][1];
-		// what's the ID of node Y?
-		var nodeYID = this.questions[this.questionIndex][3];
-		// find out if there is an edge between the two nodes
-		var answer = this.findEdge(nodeXID, nodeYID) >= 0;
-		// save the answer
-		this.answers.push(answer);
-	} else if (this.questionIndex == 4) {
-		// what's the ID of node X?
-		var nodeXID = this.questions[this.questionIndex][1];
-		// what's the ID of node Y?
-		var nodeYID = this.questions[this.questionIndex][3];
-		// find out if there is an edge between the two nodes
-		var index = this.findEdge(nodeXID, nodeYID);
-		// save the answer
-		this.answers.push(this.edges[index].cost);
-	} else if (this.questionIndex == 5) {
-		// what's the ID of the node?
-		var nodeID = this.questions[this.questionIndex][1];
-		// use the ID to get a pointer to the node
-		var node = this.nodes[this.findNode(nodeID)];
-		// get the in-degree of the node
-		this.answers.push(this.inDegree(node));
-	} else if (this.questionIndex == 6) {
-		// what's the ID of the node?
-		var nodeID = this.questions[this.questionIndex][1];
-		// use the ID to get a pointer to the node
-		var node = this.nodes[this.findNode(nodeID)];
-		// get the out-degree of the node
-		this.answers.push(this.outDegree(node));
-	}
-}
-
-/*
- * Choose a random node for use in a question
- */
-GraphModel.prototype.randomNode = function() {
-	// choose a random index
-	var index = getRandomInt(0, this.nodes.length);
-	// make sure the node has degree > 0
-	while (this.degree(this.nodes[index]) <= 0) {
-		// keep looking until you find a node that works
-		index = (index + 1) % this.nodes.length;
-	}
-	// return the node
-	return this.nodes[index];
-}
-
-
-/*
- * Choose a random edge for use in a question
- */
-GraphModel.prototype.randomEdge = function() {
-	// choose a random index and return the edge
-	return this.edges[getRandomInt(0, this.edges.length)];
 }
 
 
@@ -465,7 +374,10 @@ GraphModel.prototype.addEdgeToGraph = function(fromNodeID, toNodeID, cost, showC
 	// add edge to the adjacency list
 	this.adjacencyList[fromNodeID].push({toNodeID:cost});
 	// add edge to the adjacency matrix
-	this.adjacencyMatrix[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()][toNodeID.charCodeAt(0) - 'A'.charCodeAt()] = cost;
+	if (this.get('weighted') == 'true')
+		this.adjacencyMatrix[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()][toNodeID.charCodeAt(0) - 'A'.charCodeAt()] = cost;
+	else
+		this.adjacencyMatrix[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()][toNodeID.charCodeAt(0) - 'A'.charCodeAt()] = 1;
 }
 
 

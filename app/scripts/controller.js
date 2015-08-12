@@ -65,8 +65,6 @@ GraphController.prototype.setupDisplay = function() {
 	this.graphModel.createNewQuestions();
 	// choose a question randomly
 	this.graphModel.chooseQuestion();
-	// store the answer(s) to the question we chose in the last step
-	this.graphModel.setAnswers();
 	// draw the results for the last five questions
 	this.graphView.drawAnswerHistory(this.graphModel.answerHistory);
 	// draw the graph on the screen

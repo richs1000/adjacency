@@ -115,9 +115,49 @@ GraphView.prototype.setupControls = function() {
 }
 
 
+GraphView.prototype.drawAdjacencyMatrix = function() {
+	var bigTableString = "";
+	bigTableString += "<table id='adjacencyMatrixTable' border='1'>\n";
+	// table header
+	bigTableString += "<thead>\n";
+	bigTableString += "<tr>\n";
+	bigTableString += "<td></td>\n";
+	// one column for each node
+	for (var t = 0; t < this.controller.graphModel.nodes.length; t++) {
+		var htmlString = "<th scope='col' text-align='center'>" + this.controller.graphModel.nodes[t].nodeID + "</th>";
+		bigTableString += htmlString + "\n";
+	}
+	bigTableString += "</tr>\n";
+	bigTableString += "</thead>\n";
+	// table body
+	bigTableString += "<tbody>\n";
+	// one row for each node
+	for (var f = 0; f < this.controller.graphModel.nodes.length; f++) {
+		//start a new row
+		bigTableString += "<tr>\n";
+		var headerString = "<th scope='row' text-align='center'>" + this.controller.graphModel.nodes[f].nodeID + "</th>";
+		bigTableString += headerString + "\n";
+		var rowString = "";
+		// one column for each node
+		for (var t = 0; t < this.controller.graphModel.nodes.length; t++) {
+			var cellString = "<td><input type='text' class='form-control adjacencyMatrixSquare' id='aMS_" + f + "_" + t + "'></td>\n";
+			rowString += cellString + "\n";
+		}
+		// end the row
+		bigTableString += rowString + "\n</tr>\n";
+	}
+	// close the table
+	bigTableString += "</tbody>\n";
+	bigTableString += "</table>\n";
+	$( '#adjacencyMatrixList').append( bigTableString );
+}
+
+
 GraphView.prototype.presentQuestion = function() {
 	// display the new question
 	$( "#lblQuestion" ).text(this.controller.graphModel.question);
+	// draw the adjacency matrix
+	this.drawAdjacencyMatrix();
 }
 
 /*

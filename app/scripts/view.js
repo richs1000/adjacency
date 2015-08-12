@@ -75,13 +75,20 @@ GraphView.prototype.getAdjacencyList = function() {
 }
 
 
+GraphView.prototype.getStudentAnswer = function() {
+	// adjacency matrix question
+	if (this.controller.graphModel.questionIndex == 0)
+		return this.getAdjacencyMatrix();
+	else
+		return this.getAdjacencyList();
+}
+
 
 GraphView.prototype.setupControls = function() {
 	// add event handler for submit button
 	$( "#btnSubmit" ).click(function() {
 		// get the student's answer
-		//var studentAnswer = graphController.graphView.getAdjacencyMatrix();
-		var studentAnswer = graphController.graphView.getAdjacencyList();
+		var studentAnswer = graphController.graphView.getStudentAnswer();
 		console.log("Student answered " + studentAnswer);
 		// record whether it was right or wrong
 		var rightAnswer = graphController.graphModel.checkAnswer(studentAnswer);
@@ -213,8 +220,10 @@ GraphView.prototype.presentQuestion = function() {
 	// display the new question
 	$( "#lblQuestion" ).text(this.controller.graphModel.question);
 	// draw the adjacency matrix
-	//this.drawAdjacencyMatrix();
-	this.drawAdjacencyList();
+	if (this.controller.graphModel.questionIndex == 0)
+		this.drawAdjacencyMatrix();
+	else
+		this.drawAdjacencyList();
 }
 
 /*

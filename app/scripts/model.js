@@ -193,7 +193,10 @@ for (var t = 0; t < this.controller.graphModel.adjacencyList[nodeID].length; t++
 
 
 GraphModel.prototype.checkAnswer = function(studentAnswer) {
-	return this.checkAdjacencyList(studentAnswer);
+	if (this.questionIndex == 0)
+		return this.checkAdjacencyMatrix(studentAnswer)
+	else
+		return this.checkAdjacencyList(studentAnswer);
 }
 
 /*
@@ -288,6 +291,7 @@ GraphModel.prototype.createNewGraph = function() {
 			}
 		}
 	}
+	console.log(this.adjacencyMatrix);
 	console.log(this.adjacencyList);
 }
 

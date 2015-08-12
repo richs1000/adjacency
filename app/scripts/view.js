@@ -201,10 +201,14 @@ GraphView.prototype.drawAdjacencyList = function() {
 		var headerString = "<th scope='row' text-align='center'>" + nodeID + "</th>";
 		bigTableString += headerString + "\n";
 		var rowString = "";
-		// one column for each node in adjacency list
+		// if there is no weight, show one column for each node in adjacency list
 		for (var t = 0; t < this.controller.graphModel.adjacencyList[f].length; t++) {
 			var cellString = "<td><input type='text' class='form-control adjacencyMatrixSquare' id='aLS_" + f + "_" + t + "'></td>\n";
 			rowString += cellString + "\n";
+			if (this.controller.getModelValue('weighted') == 'true') {
+				var cellString = "<td> : </td>\n<td><input type='text' class='form-control adjacencyMatrixSquare' id='aMSw_" + f + "_" + t + "'></td>\n";
+				rowString += cellString + "<td></td>\n";				
+			}
 		}
 		// end the row
 		bigTableString += rowString + "\n</tr>\n";

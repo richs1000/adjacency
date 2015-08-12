@@ -20,7 +20,7 @@ function GraphController() {
 		numerator: 7,
 		denominator: 10,
 		undirected: 'false',
-		weighted: 'false',
+		weighted: 'true',
 		firstQuestion: 0,
 		lastQuestion: 1,
 		doNotLaunch: true

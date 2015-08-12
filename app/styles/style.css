@@ -30,6 +30,12 @@ body{
 	text-align: center;
 }
 
+.adjacencyListSquare {
+	font-size: 14px;
+	text-align: center;
+	display: inline;
+}
+
 th {
 	text-align: center;
 }

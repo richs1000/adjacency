@@ -145,7 +145,7 @@ GraphModel.prototype.masteryAchieved = function() {
 /*
  * Compare the student's answer to the correct answer(s).
  */
-GraphModel.prototype.checkAnswer = function (studentAnswer) {
+GraphModel.prototype.checkAdjacencyMatrix = function (studentAnswer) {
 	// loop through all the rows (the from nodes)
 	for (var f = 0; f < this.adjacencyMatrix.length; f++) {
 		// loop through all the columns within each row
@@ -162,6 +162,40 @@ GraphModel.prototype.checkAnswer = function (studentAnswer) {
 }
 
 
+GraphModel.prototype.checkAdjacencyList = function (studentAnswer) {
+	// loop through all the nodes (the from nodes)
+	for (var f = 0; f < this.nodes.length; f++) {
+		// loop through all the elements within the adjacency list
+		for (var t = 0; t < this.adjacencyList[f].length; t++) {
+			// compare the student's answer with the correct answer
+			if (this.adjacencyList[f][t] != studentAnswer[f][t]) {
+				// if anything doesn't match, they got it wrong
+				return false;
+			}
+		}
+	}
+	// everything matches, they got the question right
+	return true;
+}
+
+
+/*
+
+var headerString = "<th scope='row' text-align='center'>" + nodeID + "</th>";
+bigTableString += headerString + "\n";
+var rowString = "";
+// one column for each node in adjacency list
+for (var t = 0; t < this.controller.graphModel.adjacencyList[nodeID].length; t++) {
+	var cellString = "<td><input type='text' class='form-control adjacencyMatrixSquare' id='aLS_" + f + "_" + t + "'></td>\n";
+	rowString += cellString + "\n";
+}
+*/
+
+
+GraphModel.prototype.checkAnswer = function(studentAnswer) {
+	return this.checkAdjacencyList(studentAnswer);
+}
+
 /*
 * This function empties out any old nodes from a previous graph and
 * creates brand new nodes.
@@ -177,9 +211,15 @@ GraphModel.prototype.createNewGraph = function() {
 // reset array of edges - starts off empty
 	this.edges = [];
 	// adjacency list - used to answer questions
-	// here I'm treating an object like a dictionary of lists, indexed by
-	// the node index
-	this.adjacencyList = {A:[], B:[], C:[], D:[], E:[], F:[]};
+	// each row corresponds to the adjacency list for a single node
+	this.adjacencyList = [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+	];
 	// adjacency matrix - used to answer questions
 	// rows are indexed by start of edge, columns are indexed by end of edge
 	// items are indexed as adjacencyMatrix[from][to]
@@ -248,6 +288,7 @@ GraphModel.prototype.createNewGraph = function() {
 			}
 		}
 	}
+	console.log(this.adjacencyList);
 }
 
 /*
@@ -356,6 +397,20 @@ GraphModel.prototype.addNodeToGraph = function(nodeID) {
 	this.nodes.push(newGraphNode);
 }
 
+function addInOrder(arr, item) {
+	if (arr.length == 0) {
+		arr.push(item);
+		return;
+	}
+	for (var i = arr.length - 1; i >= 0; i--) {
+		if (item.charCodeAt(0) > arr[i].charCodeAt(0)) {
+			arr.splice(i+1, 0, item);
+			return;
+		}
+	}
+	arr.unshift(item);
+	return;
+}
 
 /*
  * This function is used to add an edge to the edges array
@@ -372,7 +427,8 @@ GraphModel.prototype.addEdgeToGraph = function(fromNodeID, toNodeID, cost, showC
 	// Add GraphEdge object to array of edges
 	this.edges.push(newGraphEdge);
 	// add edge to the adjacency list
-	this.adjacencyList[fromNodeID].push({toNodeID:cost});
+	// this.adjacencyList[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()].push(toNodeID);
+	addInOrder(this.adjacencyList[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()], toNodeID);
 	// add edge to the adjacency matrix
 	if (this.get('weighted') == 'true')
 		this.adjacencyMatrix[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()][toNodeID.charCodeAt(0) - 'A'.charCodeAt()] = cost;

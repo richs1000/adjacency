@@ -51,11 +51,37 @@ GraphView.prototype.getAdjacencyMatrix = function() {
 	return studentAnswer;
 }
 
+
+GraphView.prototype.getAdjacencyList = function() {
+	// start with an empty adjacency matrix
+	var studentAnswer = [];
+	// loop through all the "from" nodes in the graph
+	for (var f = 0; f < this.controller.graphModel.nodes.length; f++) {
+		// create an empty row to add to the adjacency matrix
+		var row = [];
+		// loop through all the "to" nodes in the graph
+		for (var t = 0; t < this.controller.graphModel.adjacencyList[f].length; t++) {
+			// construct the id string
+			var cellID = '#aLS_' + f + '_' + t;
+			// get contents of cellID
+			var cellValue = $( cellID ).val();
+			// add the value in this text field to the end of the adjacency matrix row
+			addInOrder(row, cellValue.toUpperCase());
+		}
+		// add the row to the bottom of the adjacency matrix
+		studentAnswer.push(row);
+	}
+	return studentAnswer;
+}
+
+
+
 GraphView.prototype.setupControls = function() {
 	// add event handler for submit button
 	$( "#btnSubmit" ).click(function() {
 		// get the student's answer
-		var studentAnswer = graphController.graphView.getAdjacencyMatrix();
+		//var studentAnswer = graphController.graphView.getAdjacencyMatrix();
+		var studentAnswer = graphController.graphView.getAdjacencyList();
 		console.log("Student answered " + studentAnswer);
 		// record whether it was right or wrong
 		var rightAnswer = graphController.graphModel.checkAnswer(studentAnswer);
@@ -102,6 +128,8 @@ GraphView.prototype.setupControls = function() {
 		$( "#btnSubmit" ).prop('disabled', false);
 		// erase the old question
 		$( "#lblQuestion" ).text('');
+		// erase the old adjacency matrix
+		$( "#adjacencyMatrixList" ).html('');
 		// enable text field where the user enters an answer
 		$( "#txtAnswer" ).prop('disabled', false);
 		// empty the text field where the user enters an answer
@@ -153,11 +181,40 @@ GraphView.prototype.drawAdjacencyMatrix = function() {
 }
 
 
+GraphView.prototype.drawAdjacencyList = function() {
+	var bigTableString = "";
+	bigTableString += "<table id='adjacencyListTable' border='1'>\n";
+	// table body
+	bigTableString += "<tbody>\n";
+	// one row for each node
+	for (var f = 0; f < this.controller.graphModel.nodes.length; f++) {
+		//start a new row
+		bigTableString += "<tr>\n";
+		var nodeID = this.controller.graphModel.nodes[f].nodeID;
+		var headerString = "<th scope='row' text-align='center'>" + nodeID + "</th>";
+		bigTableString += headerString + "\n";
+		var rowString = "";
+		// one column for each node in adjacency list
+		for (var t = 0; t < this.controller.graphModel.adjacencyList[f].length; t++) {
+			var cellString = "<td><input type='text' class='form-control adjacencyMatrixSquare' id='aLS_" + f + "_" + t + "'></td>\n";
+			rowString += cellString + "\n";
+		}
+		// end the row
+		bigTableString += rowString + "\n</tr>\n";
+	}
+	// close the table
+	bigTableString += "</tbody>\n";
+	bigTableString += "</table>\n";
+	$( '#adjacencyMatrixList').append( bigTableString );
+}
+
+
 GraphView.prototype.presentQuestion = function() {
 	// display the new question
 	$( "#lblQuestion" ).text(this.controller.graphModel.question);
 	// draw the adjacency matrix
-	this.drawAdjacencyMatrix();
+	//this.drawAdjacencyMatrix();
+	this.drawAdjacencyList();
 }
 
 /*

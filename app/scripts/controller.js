@@ -59,6 +59,20 @@ GraphController.prototype.triggerCheck = function() {
 }
 
 GraphController.prototype.setupDisplay = function() {
+	// flip a coin to decide if the graph is directed or undirected
+	var coin = getRandomInt(0, 2);
+	// set the directed/undirected flag
+	if (coin == 0)
+		this.setModelValue('undirected', 'false');
+	else
+		this.setModelValue('undirected', 'true');
+	// flip a coin to decide if the graph is directed or undirected
+	coin = getRandomInt(0, 2);
+	// set the directed/undirected flag
+	if (coin == 0)
+		this.setModelValue('weighted', 'false');
+	else
+		this.setModelValue('weighted', 'true');
 	// create a brand new graph - randomly choose nodes and edges
 	this.graphModel.createNewGraph();
 	// choose a new set of random questions

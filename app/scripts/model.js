@@ -168,9 +168,13 @@ GraphModel.prototype.checkAdjacencyList = function (studentAnswer) {
 		// loop through all the elements within the adjacency list
 		for (var t = 0; t < this.adjacencyList[f].length; t++) {
 			// compare the student's answer with the correct answer
-			if (this.adjacencyList[f][t] != studentAnswer[f][t]) {
+			// {toNode:toNodeID, edgeCost: cost}
+			if (this.adjacencyList[f][t].toNode != studentAnswer[f][t].toNode) {
 				// if anything doesn't match, they got it wrong
 				return false;
+			} else if ((this.get('weighted') == 'true') &&
+								(this.adjacencyList[f][t].edgeCost != studentAnswer[f][t].edgeCost)) {
+									return false;
 			}
 		}
 	}
@@ -407,7 +411,7 @@ function addInOrder(arr, item) {
 		return;
 	}
 	for (var i = arr.length - 1; i >= 0; i--) {
-		if (item.charCodeAt(0) > arr[i].charCodeAt(0)) {
+		if (item.toNode.charCodeAt(0) > arr[i].toNode.charCodeAt(0)) {
 			arr.splice(i+1, 0, item);
 			return;
 		}
@@ -432,7 +436,7 @@ GraphModel.prototype.addEdgeToGraph = function(fromNodeID, toNodeID, cost, showC
 	this.edges.push(newGraphEdge);
 	// add edge to the adjacency list
 	// this.adjacencyList[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()].push(toNodeID);
-	addInOrder(this.adjacencyList[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()], toNodeID);
+	addInOrder(this.adjacencyList[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()], {toNode:toNodeID, edgeCost: cost});
 	// add edge to the adjacency matrix
 	if (this.get('weighted') == 'true')
 		this.adjacencyMatrix[fromNodeID.charCodeAt(0) - 'A'.charCodeAt()][toNodeID.charCodeAt(0) - 'A'.charCodeAt()] = cost;

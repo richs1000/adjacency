@@ -19,7 +19,7 @@ function GraphController() {
 		mastery: 'false',
 		numerator: 7,
 		denominator: 10,
-		undirected: 'false',
+		undirected: 'true',
 		weighted: 'true',
 		firstQuestion: 0,
 		lastQuestion: 1,

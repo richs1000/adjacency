@@ -64,11 +64,18 @@ GraphView.prototype.getAdjacencyList = function() {
 			// construct the id string
 			var cellID = '#aLS_' + f + '_' + t;
 			// get contents of cellID
-			var cellValue = $( cellID ).val();
-			// add the value in this text field to the end of the adjacency matrix row
-			addInOrder(row, cellValue.toUpperCase());
+			var toNodeID = $( cellID ).val();
+			// if this is a weighted graph
+			if (this.controller.getModelValue('weighted') == 'true') {
+				// construct the id string
+				cellID = '#aLSw_' + f + '_' + t;
+				// get contents of cellID
+				var cost = $( cellID ).val();
+			}
+			// add the value in this text field to the end of the adjacency list row
+			addInOrder(row, {toNode:toNodeID.toUpperCase(), edgeCost: cost});
 		}
-		// add the row to the bottom of the adjacency matrix
+		// add the row to the bottom of the adjacency list
 		studentAnswer.push(row);
 	}
 	return studentAnswer;
@@ -203,11 +210,11 @@ GraphView.prototype.drawAdjacencyList = function() {
 		var rowString = "";
 		// if there is no weight, show one column for each node in adjacency list
 		for (var t = 0; t < this.controller.graphModel.adjacencyList[f].length; t++) {
-			var cellString = "<td><input type='text' class='form-control adjacencyMatrixSquare' id='aLS_" + f + "_" + t + "'></td>\n";
+			var cellString = "<td><input type='text' class='form-control adjacencyMatrixSquare' placeholder='n' id='aLS_" + f + "_" + t + "'></td>\n";
 			rowString += cellString + "\n";
 			if (this.controller.getModelValue('weighted') == 'true') {
-				var cellString = "<td> : </td>\n<td><input type='text' class='form-control adjacencyMatrixSquare' id='aMSw_" + f + "_" + t + "'></td>\n";
-				rowString += cellString + "<td></td>\n";				
+				var cellString = "<td> : </td>\n<td><input type='text' class='form-control adjacencyMatrixSquare' placeholder='w' id='aLSw_" + f + "_" + t + "'></td>\n";
+				rowString += cellString + "<td></td>\n";
 			}
 		}
 		// end the row

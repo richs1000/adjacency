@@ -59,10 +59,10 @@ GraphController.prototype.triggerCheck = function() {
 	pipit.Controller.triggerCheck();
 }
 
-inSetupDisplay = false;
+var inSetupDisplay = false;
 
 GraphController.prototype.setupDisplay = function() {
-	if inSetupDisplay return;
+	if (inSetupDisplay) return;
 	// flip a coin to decide if the graph is directed or undirected
 	var coin = getRandomInt(0, 2);
 	// set the directed/undirected flag

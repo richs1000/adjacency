@@ -77,6 +77,37 @@ function GraphModel(_controller, _attrs) {
 	// stores as many answers as we're willing to consider
 	this.answerHistory = [];
 
+	this.on('change:numerator', function(){
+			// myController.graphView = new GraphView(this);
+			controller.setupDisplay();
+	});
+
+	this.on('change:denominator', function(){
+		// myController.graphView = new GraphView(this);
+		controller.setupDisplay();
+	});
+
+	this.on('change:weighted', function(){
+		// myController.graphView = new GraphView(this);
+		controller.setupDisplay();
+	});
+
+	this.on('change:undirected', function(){
+		// myController.graphView = new GraphView(this);
+		controller.setupDisplay();
+	});
+
+	this.on('change:firstQuestion', function(){
+		// myController.graphView = new GraphView(this);
+		controller.setupDisplay();
+	});
+
+	this.on('change:lastQuestion', function(){
+		// myController.graphView = new GraphView(this);
+		controller.setupDisplay();
+	});
+
+
 	// the things below are in the data model so I don't declare them here
 	// this flag is set to true when the mastery condition is reached
 	//this.mastery = false;
@@ -93,6 +124,8 @@ function GraphModel(_controller, _attrs) {
 	// the index of the last legal question template in the template array
 	// this.lastQuestion = 4
 } // GraphModel
+
+
 
 
 /*

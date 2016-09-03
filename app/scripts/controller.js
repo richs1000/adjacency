@@ -74,7 +74,7 @@ function GraphController() {
 	this.graphModel.resetAnswerHistory();
 	// initialize the view
 	this.graphView = new GraphView(this);
-	this.setupDisplay();
+	// this.setupDisplay();
 }
 
 

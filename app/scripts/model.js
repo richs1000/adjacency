@@ -79,32 +79,32 @@ function GraphModel(_controller, _attrs) {
 
 	this.on('change:numerator', function(){
 			// myController.graphView = new GraphView(this);
-			controller.setupDisplay();
+			this.controller.setupDisplay();
 	});
 
 	this.on('change:denominator', function(){
 		// myController.graphView = new GraphView(this);
-		controller.setupDisplay();
+		this.controller.setupDisplay();
 	});
 
 	this.on('change:weighted', function(){
 		// myController.graphView = new GraphView(this);
-		controller.setupDisplay();
+		this.controller.setupDisplay();
 	});
 
 	this.on('change:undirected', function(){
 		// myController.graphView = new GraphView(this);
-		controller.setupDisplay();
+		this.controller.setupDisplay();
 	});
 
 	this.on('change:firstQuestion', function(){
 		// myController.graphView = new GraphView(this);
-		controller.setupDisplay();
+		this.controller.setupDisplay();
 	});
 
 	this.on('change:lastQuestion', function(){
 		// myController.graphView = new GraphView(this);
-		controller.setupDisplay();
+		this.controller.setupDisplay();
 	});
 
 

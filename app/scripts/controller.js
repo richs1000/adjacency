@@ -38,32 +38,32 @@ function GraphController() {
   myController = this;
 
 	this.graphModel.on('change:numerator', function(){
-		myController.graphView = new GraphView(this);
+			// myController.graphView = new GraphView(this);
 			myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:denominator', function(){
-		myController.graphView = new GraphView(this);
+		// myController.graphView = new GraphView(this);
 		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:weighted', function(){
-		myController.graphView = new GraphView(this);
+		// myController.graphView = new GraphView(this);
 		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:undirected', function(){
-		myController.graphView = new GraphView(this);
+		// myController.graphView = new GraphView(this);
 		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:firstQuestion', function(){
-		myController.graphView = new GraphView(this);
+		// myController.graphView = new GraphView(this);
 		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:lastQuestion', function(){
-		myController.graphView = new GraphView(this);
+		// myController.graphView = new GraphView(this);
 		myController.setupDisplay();
 	});
 

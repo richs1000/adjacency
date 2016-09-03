@@ -35,33 +35,30 @@ function GraphController() {
 	pipit.CapiAdapter.expose('lastQuestion', this.graphModel);
 	pipit.CapiAdapter.expose('doNotLaunch', this.graphModel);
 
+  myController = this;
 
 	this.graphModel.on('change:numerator', function(){
-			// initialize the view
-			this.graphView = new GraphView(this);
-			this.setupDisplay();
+			myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:denominator', function(){
-		// initialize the view
-		this.graphView = new GraphView(this);
-		this.setupDisplay();
+		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:weighted', function(){
-		this.setupDisplay();
+		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:undirected', function(){
-		this.setupDisplay();
+		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:firstQuestion', function(){
-		this.setupDisplay();
+		myController.setupDisplay();
 	});
 
 	this.graphModel.on('change:lastQuestion', function(){
-		this.setupDisplay();
+		myController.setupDisplay();
 	});
 
 

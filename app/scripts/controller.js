@@ -59,7 +59,10 @@ GraphController.prototype.triggerCheck = function() {
 	pipit.Controller.triggerCheck();
 }
 
+inSetupDisplay = false;
+
 GraphController.prototype.setupDisplay = function() {
+	if inSetupDisplay return;
 	// flip a coin to decide if the graph is directed or undirected
 	var coin = getRandomInt(0, 2);
 	// set the directed/undirected flag
@@ -86,6 +89,7 @@ GraphController.prototype.setupDisplay = function() {
 	this.graphView.drawGraph(this.graphModel.nodes, this.graphModel.edges, this.graphModel.get('undirected') == 'true');
 	// display the next question
 	this.graphView.presentQuestion();
+	inSetupDisplay = false;
 }
 
 

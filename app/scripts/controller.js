@@ -34,6 +34,57 @@ function GraphController() {
 	pipit.CapiAdapter.expose('firstQuestion', this.graphModel);
 	pipit.CapiAdapter.expose('lastQuestion', this.graphModel);
 	pipit.CapiAdapter.expose('doNotLaunch', this.graphModel);
+
+
+	this.graphModel.on('change:numerator', function(){
+			// set the answer history to empty
+			this.graphModel.resetAnswerHistory();
+			// initialize the view
+			this.graphView = new GraphView(this);
+			this.setupDisplay();
+	});
+
+	this.graphModel.on('change:denominator', function(){
+		// set the answer history to empty
+		this.graphModel.resetAnswerHistory();
+		// initialize the view
+		this.graphView = new GraphView(this);
+		this.setupDisplay();
+	});
+
+	this.graphModel.on('change:weighted', function(){
+		// set the answer history to empty
+		this.graphModel.resetAnswerHistory();
+		// initialize the view
+		this.graphView = new GraphView(this);
+		this.setupDisplay();
+	});
+
+	this.graphModel.on('change:undirected', function(){
+		// set the answer history to empty
+		this.graphModel.resetAnswerHistory();
+		// initialize the view
+		this.graphView = new GraphView(this);
+		this.setupDisplay();
+	});
+
+	this.graphModel.on('change:firstQuestion', function(){
+		// set the answer history to empty
+		this.graphModel.resetAnswerHistory();
+		// initialize the view
+		this.graphView = new GraphView(this);
+		this.setupDisplay();
+	});
+
+	this.graphModel.on('change:lastQuestion', function(){
+		// set the answer history to empty
+		this.graphModel.resetAnswerHistory();
+		// initialize the view
+		this.graphView = new GraphView(this);
+		this.setupDisplay();
+	});
+
+
 	// let smart sparrow know that the sim is ready to accept values
 	pipit.Controller.notifyOnReady();
 	// set the answer history to empty
